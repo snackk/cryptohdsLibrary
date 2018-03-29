@@ -1,12 +1,9 @@
 package com.sec.cryptohdslibrary.security;
 
-import java.io.*;
-
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
-import java.util.List;
 
  
 //SIGNATURES SO SAO USADAS NUM SENTIDO, no outro o servidor usa HMAC para n ter que criar uma signature a cada msg de resposta.TODO
