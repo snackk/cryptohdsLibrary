@@ -58,7 +58,46 @@ public class DigSignature {
 		return Arrays.equals(timeStampOnly1,timeStampOnly2);	
 	}
 	
-	
+	/*
+		Exemplo de chamada Register:
+			Client:
+				->Criar objecto LedgerDTO
+					-> Para que o passo seguinte funcione é preciso que os DTO's implementem Serializable.
+					-> Acho que a melhor solução passa por passar os DTO's para a Library, visto que o Client e o Server vao partilha-los
+				->Converter Objecto em byte[]
+					->Criar este metodo algures na library, numa classe Util
+
+						public byte[] encodeObjectToByte(Object object) {
+						  ByteArrayOutputStream bos = new ByteArrayOutputStream();
+						  ObjectOutputStream oos = new ObjectOutputStream(bos);
+						  oos.writeObject(object);
+						  oos.flush();
+						  return bos.toByteArray();
+						}
+
+				->Assinar Objecto e retornar a String. Usar isto: String base64.encode(byte[])
+				->Criar TimeStamp ou Chave Gerada
+				->Gerar Envelope
+					-> Criar uma classe partilhada na Library com os seguintes atributos
+						originalMessage: Object -> Acho que este Object pode ser uma abstraçao de todos os nossos DTO's
+						signedMessage: String
+						TimeStamp: Date
+				->{Envelope}Ks -> Cifrar o envelope com uma Chave Publica, e retornar String base64.encode(byte[])
+				->O que será enviado no body da Mensagem será sempre uma String em base64 que contem tudo cifrado
+
+			Server:
+			O objectivo aqui é criar um layer interno de segurança. Para isso deve ser usado o Spring Interceptor, isto permite que a API que criamos funcione independemente da camada de segurança que estamos a tentar definir.
+
+			LER:
+				http://www.baeldung.com/spring-mvc-handlerinterceptor
+				https://stackoverflow.com/questions/38360215/how-to-create-a-spring-interceptor-for-spring-restful-web-services
+
+				->Tem um Spring Interceptor
+					->Decifra o body com a privateKey do servidor, obtendo assim o Envelope original
+					->Ve se timestamp/Chave Gerada faz sentido, caso contrário return false
+					->Valida a signature da originalMessage com a SignedMessage batem certo
+					->Entra na API normal
+	* */
 	
 	
 	
