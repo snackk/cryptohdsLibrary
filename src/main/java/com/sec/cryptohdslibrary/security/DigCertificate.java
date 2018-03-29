@@ -17,9 +17,9 @@ import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
 
-public class Certificate {
+public class DigCertificate {
 
-    public static X509Certificate[] generateCert(KeyPair keyPair) throws Exception {
+    public static X509Certificate[] generateCertificate(KeyPair keyPair) throws Exception {
 
         X509CertInfo certInfo = new X509CertInfo();
         Date from = new Date();
