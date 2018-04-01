@@ -80,6 +80,11 @@ public class KeyStoreImpl {
         KeyStore keyStore = null;
 
         if (!keyStoreExists()){
+            File file = new File(getKeyStorePath());
+
+            // create parent directories for key storage
+            file.getParentFile().mkdirs();
+
             this.setkeyPairHDS(generateKeyPair());
             keyStore = generateKeyStore(this.getkeyPairHDS());
             storeKeyStore(keyStore);
