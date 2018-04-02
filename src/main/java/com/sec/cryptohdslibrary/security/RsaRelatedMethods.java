@@ -33,13 +33,13 @@ public class RsaRelatedMethods {
 			return DatatypeConverter.printBase64Binary(b);
 		}
 
-		public static byte[] RSAcipher(String message, PrivateKey privKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
+		public static byte[] RSAcipher(String message, PublicKey privKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
 			  Cipher cipher = Cipher.getInstance("RSA");  
 		      cipher.init(Cipher.ENCRYPT_MODE, privKey);  
 		      return cipher.doFinal(message.getBytes());  
 		}
 		
-		public static byte[] RSAdecipher(byte[] encryptedMessage, PublicKey pubKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException, IOException {
+		public static byte[] RSAdecipher(byte[] encryptedMessage, PrivateKey pubKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException, IOException {
 			Cipher cipher = Cipher.getInstance("RSA");  
 	        cipher.init(Cipher.DECRYPT_MODE, pubKey);
 	        return cipher.doFinal(encryptedMessage);
