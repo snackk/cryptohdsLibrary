@@ -33,18 +33,16 @@ public class RsaRelatedMethods {
 			return DatatypeConverter.printBase64Binary(b);
 		}
 
-		public static byte[] RSAcipher(String message, PublicKey publicKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
-			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-			cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-			byte[] c_message = cipher.doFinal(message.getBytes("UTF-8"));
-			return c_message;
+		public static byte[] RSAcipher(String message, PrivateKey privKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
+			  Cipher cipher = Cipher.getInstance("RSA");  
+		      cipher.init(Cipher.ENCRYPT_MODE, privKey);  
+		      return cipher.doFinal(message.getBytes());  
 		}
 		
-		public static byte[] RSAdecipher(String c_message, PrivateKey privateKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException, IOException {
-			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-			cipher.init(Cipher.DECRYPT_MODE, privateKey);
-			byte[] message = cipher.doFinal(stringToBytes(c_message));
-			return message;
+		public static byte[] RSAdecipher(byte[] encryptedMessage, PublicKey pubKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException, IOException {
+			Cipher cipher = Cipher.getInstance("RSA");  
+	        cipher.init(Cipher.DECRYPT_MODE, pubKey);
+	        return cipher.doFinal(encryptedMessage);
 		}
 
 		public static PublicKey getClientPublicKey(String key) throws InvalidKeySpecException, NoSuchAlgorithmException {
