@@ -10,29 +10,31 @@ import java.util.Arrays;
 
 public class DigSignature {
 
-	public byte[] sign(byte[] data, PrivateKey privateKey) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+	public static byte[] sign(byte[] data, PrivateKey privateKey) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
 		
 		// generating a signature
+		
 		Signature rsaForSign = Signature.getInstance("SHA256withRSA");
 		rsaForSign.initSign(privateKey);
 		rsaForSign.update(data);
 		byte[] signature = rsaForSign.sign();
+		
 		return signature;
 	}
 	
 	
-	public boolean verifySignature(byte[] pubKeyClient,byte[] signature,byte[] data) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException, InvalidKeySpecException {
+	public static boolean verifySignature(byte[] pubKeyClient,byte[] signature,byte[] data) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException, InvalidKeySpecException {
 		
 		KeyFactory keyFact = KeyFactory.getInstance("RSA");
 		X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(pubKeyClient);
 		PublicKey pubKey = keyFact.generatePublic(publicKeySpec);
 		
-		
 		Signature rsaForVerify = Signature.getInstance("SHA256withRSA");
-		rsaForVerify.initVerify(pubKey );
+		rsaForVerify.initVerify(pubKey);
 		rsaForVerify.update(data);
 		boolean verifies = rsaForVerify.verify(signature);
 		return verifies;
+		
 	}
 
 	
