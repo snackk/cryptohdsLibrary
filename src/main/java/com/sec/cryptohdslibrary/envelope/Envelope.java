@@ -57,16 +57,16 @@ public class Envelope implements Serializable {
         /*Cipher the Envelop(this) with the Public Key of the Server(cryptoHdsPKey)*/
     	/*return RsaRelatedMethods.bytesToString(RsaRelatedMethods.RSACipher(Util.objectToByte(this), RsaRelatedMethods.decodePublicKey(cryptoHdsPKey)));*/
     
-    	
+    	/*
     	final int keySize = 2048;
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(keySize);      
         KeyPair kp = keyPairGenerator.genKeyPair();
-        /*Util.objectToByte(this)*/
+        /*Util.objectToByte(this)
     	
     	SecretKey aesKey = RsaRelatedMethods.generateAesKey();
     	byte[] aesKeyBytes = aesKey.getEncoded();
-    	byte[] EncryptedData = RsaRelatedMethods.encryptAes(new String("olaoleola"),aesKey);
+    	byte[] EncryptedData = RsaRelatedMethods.encryptAes("ola".getBytes(),aesKey);
     	
     	Cipher rsa = Cipher.getInstance("RSA/ECB/PKCS1Padding");
     	rsa.init(Cipher.WRAP_MODE, kp.getPublic());
@@ -79,7 +79,7 @@ public class Envelope implements Serializable {
     	byte[] EncryptedKeyReceived = Arrays.copyOfRange(EncryptedMessage, 0, 16);
     	byte[] EncryptedDataReceived = Arrays.copyOfRange(EncryptedMessage, 17, EncryptedMessage.length);
     	
-    	/*org.apache.commons.lang.ArrayUtils.reverse(EncryptedKeyReceived);*/
+    	/*org.apache.commons.lang.ArrayUtils.reverse(EncryptedKeyReceived);
     
     	
     	System.out.println("EncryptedKeyReceivedSize:"+ EncryptedKeyReceived.length);
@@ -101,7 +101,11 @@ public class Envelope implements Serializable {
     	String message = new String (cipher.doFinal(EncryptedDataReceived));
 
     	System.out.println(message);	
+    	*/
     	
+    	SecretKey aesKey = RsaRelatedMethods.generateAesKey();
+    	byte [] cipheredObject = RsaRelatedMethods.encryptAes(Util.objectToByte(this), aesKey);
+    	System.out.println(new String(cipheredObject));
     
     	return null;
     	
