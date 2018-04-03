@@ -19,6 +19,8 @@ import java.security.cert.X509Certificate;
 
 public class DigCertificate {
 
+    private static final String SHA_METHOD = "SHA1withRSA";
+
     public static X509Certificate[] generateCertificate(KeyPair keyPair) throws Exception {
 
         X509CertInfo certInfo = new X509CertInfo();
@@ -39,11 +41,11 @@ public class DigCertificate {
         certInfo.set(X509CertInfo.ALGORITHM_ID, new CertificateAlgorithmId(md5WRsa));
 
         X509CertImpl generatedCertificate = new X509CertImpl(certInfo);
-        generatedCertificate.sign(keyPair.getPrivate(), "SHA1withRSA");
+        generatedCertificate.sign(keyPair.getPrivate(), SHA_METHOD);
         md5WRsa = (AlgorithmId)generatedCertificate.get(X509CertImpl.SIG_ALG);
         certInfo.set(CertificateAlgorithmId.NAME + "." + CertificateAlgorithmId.ALGORITHM, md5WRsa);
         generatedCertificate = new X509CertImpl(certInfo);
-        generatedCertificate.sign(keyPair.getPrivate(), "SHA1withRSA");
+        generatedCertificate.sign(keyPair.getPrivate(), SHA_METHOD);
 
         return new X509Certificate[]{generatedCertificate};
     }

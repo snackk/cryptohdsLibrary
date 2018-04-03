@@ -11,12 +11,6 @@ import java.security.*;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Arrays;
-
-import org.apache.commons.codec.binary.Base64;
 
 public class KeyStoreImpl {
 
