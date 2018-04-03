@@ -118,12 +118,12 @@ public class RsaRelatedMethods {
         return keyGenerator.generateKey();
     }
 	
-	public static byte[] encryptAes(String plaintext, SecretKey key){
+	public static byte[] encryptAes(byte[] message , SecretKey key){
 		byte[] ciphertext = null;
 		try {
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            ciphertext = cipher.doFinal(plaintext.getBytes());
+            ciphertext = cipher.doFinal(message);
         } catch (Exception e) {
             e.printStackTrace();
         }
