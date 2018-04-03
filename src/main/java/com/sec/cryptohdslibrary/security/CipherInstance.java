@@ -121,7 +121,7 @@ public class CipherInstance {
 	public static SecretKey generateAESKey(){
         KeyGenerator keyGenerator = null;
         try {
-            keyGenerator = KeyGenerator.getInstance("AES");
+            keyGenerator = KeyGenerator.getInstance(AES);
             keyGenerator.init(128);
 			return keyGenerator.generateKey();
 
@@ -133,7 +133,7 @@ public class CipherInstance {
 	
 	public static SealedObject AESCipherMessage(Message message , SecretKey key){
 		try {
-			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+			Cipher cipher = Cipher.getInstance(AES_METHOD);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return new SealedObject(message, cipher);
 
@@ -145,7 +145,7 @@ public class CipherInstance {
 	
 	 public static Message AESDecipherMessage(SealedObject sealedEnvelope, SecretKey key){
 		 try {
-			 Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+			 Cipher cipher = Cipher.getInstance(AES_METHOD);
 			 cipher.init(Cipher.DECRYPT_MODE, key);
 			 return (Message) sealedEnvelope.getObject(cipher);
 
