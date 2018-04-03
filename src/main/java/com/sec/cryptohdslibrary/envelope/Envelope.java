@@ -6,6 +6,7 @@ import com.sec.cryptohdslibrary.security.RsaRelatedMethods;
 import com.sec.cryptohdslibrary.service.dto.LedgerDTO;
 import com.sec.cryptohdslibrary.util.Util;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -22,6 +23,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -51,7 +53,7 @@ public class Envelope implements Serializable {
 
     
     
-    public String getCipheredEnvelope(String cryptoHdsPKey) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+    public String getCipheredEnvelope(String cryptoHdsPKey) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, IOException, ClassNotFoundException {
         /*TODO - Aqui da cagada... Nao da pa cifrar isto com RSA....*/
         /*TODO - optar por cifrar isto usando HMAC....*/
         /*Cipher the Envelop(this) with the Public Key of the Server(cryptoHdsPKey)*/
@@ -104,8 +106,22 @@ public class Envelope implements Serializable {
     	*/
     	
     	SecretKey aesKey = RsaRelatedMethods.generateAesKey();
-    	byte [] cipheredObject = RsaRelatedMethods.encryptAes(Util.objectToByte(this), aesKey);
-    	System.out.println(new String(cipheredObject));
+    	System.out.println(Util.objectToByte(this));
+    	
+    	Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+        SealedObject sealedEm1 = new SealedObject(this,cipher);
+
+        
+		cipher.init(Cipher.DECRYPT_MODE, aesKey);
+		Envelope testeObj = (Envelope) sealedEm1.getObject(cipher);
+		System.out.println(testeObj);
+	
+    
+    	//System.out.println(Util.byteToObject(decipheredObject));
+
+    	
+    	
     
     	return null;
     	
