@@ -10,33 +10,39 @@ import java.util.Arrays;
 
 public class DigSignature {
 
-	public static byte[] sign(byte[] data, PrivateKey privateKey) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
-		
-		// generating a signature
-		
-		Signature rsaForSign = Signature.getInstance("SHA256withRSA");
-		rsaForSign.initSign(privateKey);
-		rsaForSign.update(data);
-		byte[] signature = rsaForSign.sign();
-		
-		return signature;
-	}
-	
-	
-	public static boolean verifySignature(byte[] pubKeyClient,byte[] signature,byte[] data) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException, InvalidKeySpecException {
-		
-		KeyFactory keyFact = KeyFactory.getInstance("RSA");
-		X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(pubKeyClient);
-		PublicKey pubKey = keyFact.generatePublic(publicKeySpec);
-		
-		Signature rsaForVerify = Signature.getInstance("SHA256withRSA");
-		rsaForVerify.initVerify(pubKey);
-		rsaForVerify.update(data);
-		boolean verifies = rsaForVerify.verify(signature);
-		return verifies;
-		
-	}
+	public static byte[] signMessage(byte[] message, PrivateKey privateKey) {
+		try {
+			Signature rsaForSign = Signature.getInstance("SHA256withRSA");
+			rsaForSign.initSign(privateKey);
+			rsaForSign.update(message);
+			byte[] signature = rsaForSign.sign();
 
+			return signature;
+
+		} catch (NoSuchAlgorithmException | InvalidKeyException | SignatureException e ) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static boolean verifyMessageSignature(byte[] pubKeyClient, byte[] signature, byte[] message) {
+		boolean isVerified = false;
+		try {
+			KeyFactory keyFact = KeyFactory.getInstance("RSA");
+			X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(pubKeyClient);
+			PublicKey pubKey = keyFact.generatePublic(publicKeySpec);
+
+			Signature rsaForVerify = Signature.getInstance("SHA256withRSA");
+			rsaForVerify.initVerify(pubKey);
+			rsaForVerify.update(message);
+			isVerified = rsaForVerify.verify(signature);
+			return isVerified;
+
+		} catch(NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException | SignatureException e) {
+			e.printStackTrace();
+		}
+		return isVerified;
+	}
 	
 	public byte[] timestamped(byte[] data){
 		
