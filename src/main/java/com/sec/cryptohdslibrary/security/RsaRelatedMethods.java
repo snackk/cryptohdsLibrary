@@ -121,7 +121,7 @@ public class RsaRelatedMethods {
 	public static byte[] encryptAes(byte[] message , SecretKey key){
 		byte[] ciphertext = null;
 		try {
-			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, key);
             ciphertext = cipher.doFinal(message);
         } catch (Exception e) {
@@ -133,7 +133,7 @@ public class RsaRelatedMethods {
 	 public static byte[] decryptAes(byte[] ciphertext, SecretKey key){
 		 byte[] plaintext = null;
 		 try {
-			 Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			 Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 			 cipher.init(Cipher.DECRYPT_MODE, key);
 			 plaintext = cipher.doFinal(ciphertext);
 		 }catch (Exception e) {
