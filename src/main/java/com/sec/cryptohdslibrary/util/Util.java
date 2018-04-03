@@ -1,8 +1,18 @@
 package com.sec.cryptohdslibrary.util;
 
+import org.apache.commons.codec.binary.Base64;
+
 import java.io.*;
 
 public class Util {
+
+    public static String bytesToString(byte[] bytes2convert) {
+        return Base64.encodeBase64String(bytes2convert);
+    }
+
+    public static byte[] stringToBytes(String string2convert) {
+        return Base64.decodeBase64(string2convert);
+    }
 
     public static byte[] objectToByte(Object object2convert) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
