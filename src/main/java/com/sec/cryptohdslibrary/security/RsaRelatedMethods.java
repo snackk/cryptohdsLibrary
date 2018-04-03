@@ -12,6 +12,7 @@ import java.security.PrivateKey;
 import java.util.Arrays;
 
 import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 
 
 public class RsaRelatedMethods {
@@ -26,7 +27,7 @@ public class RsaRelatedMethods {
 
 	public static byte[] RSACipher(byte[] message, PublicKey privateKey) {
 		try {
-			Cipher cipher = Cipher.getInstance("RSA");
+			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 			cipher.init(Cipher.ENCRYPT_MODE, privateKey);
 			return cipher.doFinal(message);
 
@@ -38,7 +39,7 @@ public class RsaRelatedMethods {
 
 	public static byte[] RSADecipher(byte[] encryptedMessage, PrivateKey pubKey) {
 		try {
-			Cipher cipher = Cipher.getInstance("RSA");
+			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 			cipher.init(Cipher.DECRYPT_MODE, pubKey);
 			return cipher.doFinal(encryptedMessage);
 
@@ -105,4 +106,40 @@ public class RsaRelatedMethods {
 		}
 		return null;
 	}
+	
+	public static SecretKey generateAesKey(){
+        KeyGenerator keyGenerator = null;
+        try {
+            keyGenerator = KeyGenerator.getInstance("AES");
+            keyGenerator.init(128);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return keyGenerator.generateKey();
+    }
+	
+	public static byte[] encryptAes(String plaintext, SecretKey key){
+		byte[] ciphertext = null;
+		try {
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            ciphertext = cipher.doFinal(plaintext.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ciphertext;
+    }
+	
+	 public static byte[] decryptAes(byte[] ciphertext, SecretKey key){
+		 byte[] plaintext = null;
+		 try {
+			 Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			 cipher.init(Cipher.DECRYPT_MODE, key);
+			 plaintext = cipher.doFinal(ciphertext);
+		 }catch (Exception e) {
+            e.printStackTrace();
+		 }
+		 return plaintext;
+	  }
+	
 }
