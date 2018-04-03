@@ -29,7 +29,8 @@ public class Envelope implements Serializable {
     }
 
     public String getCipheredEnvelope(String cryptoHdsPKey) {
-
+        /*TODO - Aqui da cagada... Nao da pa cifrar isto com RSA....*/
+        /*TODO - optar por cifrar isto usando HMAC....*/
         /*Cipher the Envelop(this) with the Public Key of the Server(cryptoHdsPKey)*/
         return RsaRelatedMethods.bytesToString(RsaRelatedMethods.RSACipher(Util.objectToByte(this), RsaRelatedMethods.decodePublicKey(cryptoHdsPKey)));
     }
