@@ -1,8 +1,6 @@
 package com.sec.cryptohdslibrary.service.dto;
 
-import java.io.Serializable;
-
-public class ReceiveOperationDTO implements Serializable {
+public class ReceiveOperationDTO extends CryptohdsDTO {
 
     private String publicKey;
 

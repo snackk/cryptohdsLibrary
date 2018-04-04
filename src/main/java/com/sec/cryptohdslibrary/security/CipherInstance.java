@@ -14,6 +14,7 @@ import java.security.PrivateKey;
 import java.util.Arrays;
 
 import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 
 
 public class CipherInstance {
@@ -130,6 +131,10 @@ public class CipherInstance {
         }
         return null;
     }
+
+	public static SecretKey getAESKeyFromByte(byte[] encodedKey){
+		return new SecretKeySpec(encodedKey, 0, encodedKey.length, AES);
+	}
 	
 	public static SealedObject AESCipherMessage(Message message , SecretKey key){
 		try {

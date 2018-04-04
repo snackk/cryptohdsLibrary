@@ -1,9 +1,8 @@
 package com.sec.cryptohdslibrary.service.dto;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class OperationDTO implements Serializable {
+public class OperationDTO extends CryptohdsDTO {
 
     private Long id;
 

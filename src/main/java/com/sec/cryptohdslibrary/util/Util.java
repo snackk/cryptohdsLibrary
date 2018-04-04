@@ -2,6 +2,7 @@ package com.sec.cryptohdslibrary.util;
 
 import org.apache.commons.codec.binary.Base64;
 
+import javax.crypto.SealedObject;
 import java.io.*;
 
 public class Util {

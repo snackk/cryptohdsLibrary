@@ -1,9 +1,8 @@
 package com.sec.cryptohdslibrary.service.dto;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class LedgerBalanceDTO  implements Serializable {
+public class LedgerBalanceDTO extends CryptohdsDTO {
 
     private Long balance;
 

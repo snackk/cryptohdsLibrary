@@ -1,10 +1,9 @@
 package com.sec.cryptohdslibrary.service.dto;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LedgerDTO implements Serializable {
+public class LedgerDTO extends CryptohdsDTO {
 
     private Long id;
 
