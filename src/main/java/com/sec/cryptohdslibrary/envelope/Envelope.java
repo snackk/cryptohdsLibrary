@@ -5,15 +5,12 @@ import com.sec.cryptohdslibrary.security.CipherInstance;
 import com.sec.cryptohdslibrary.util.Util;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 
 public class Envelope implements Serializable {
@@ -26,6 +23,7 @@ public class Envelope implements Serializable {
 
     public Envelope() {}
 
+    /*Cipher Envelope with Message*/
     public void cipherEnvelope(Message message, String cryptoHdsPKey) throws IOException {
 
         /*Generate AES key*/
@@ -36,22 +34,17 @@ public class Envelope implements Serializable {
                 CipherInstance.decodePublicKey(cryptoHdsPKey)));
 
         /*Generate a sealed message with AES key and store it*/
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream os = new ObjectOutputStream(out); 
-        os.writeObject(CipherInstance.AESCipherMessage(message, aesKey));
-        
-        this.sealedMessage= out.toByteArray();
-       
+        this.sealedMessage = Util.objectToByte(CipherInstance.AESCipherMessage(message, aesKey));
     }
 
     public Message decipherEnvelope(KeyStoreImpl keyStore) throws ClassNotFoundException, IOException {
 
         /*Decipher AES key with Server private key*/
         byte[] encodedKey = CipherInstance.RSADecipher(Util.stringToBytes(getCipheredAESKey()), keyStore.getkeyPairHDS().getPrivate());
-    
+
+        /*TODO This should be moved to Util.byteToObject*/
         ByteArrayInputStream in = new ByteArrayInputStream(this.sealedMessage);
         ObjectInputStream objectInputStream = new ObjectInputStream(in);
-        
         SealedObject sealedObject = (SealedObject)objectInputStream.readObject();     
      
         /*Build SecretKey from byte[]*/

@@ -2,7 +2,6 @@ package com.sec.cryptohdslibrary.util;
 
 import org.apache.commons.codec.binary.Base64;
 
-import javax.crypto.SealedObject;
 import java.io.*;
 
 public class Util {
@@ -39,6 +38,7 @@ public class Util {
     public static Object byteToObject(byte[] byte2convert) {
         ByteArrayInputStream bis = new ByteArrayInputStream(byte2convert);
         ObjectInput in = null;
+
         try {
             in = new ObjectInputStream(bis);
             Object o = in.readObject();
