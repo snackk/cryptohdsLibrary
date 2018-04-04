@@ -25,11 +25,11 @@ public class DigSignature {
 		return null;
 	}
 	
-	public static boolean verifyMessageSignature(byte[] pubKeyClient, byte[] signature, byte[] message) {
+	public static boolean verifyMessageSignature(PublicKey pubKeyClient, byte[] signature, byte[] message) {
 		boolean isVerified = false;
 		try {
 			KeyFactory keyFact = KeyFactory.getInstance("RSA");
-			X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(pubKeyClient);
+			X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(pubKeyClient.getEncoded());
 			PublicKey pubKey = keyFact.generatePublic(publicKeySpec);
 
 			Signature rsaForVerify = Signature.getInstance("SHA256withRSA");
