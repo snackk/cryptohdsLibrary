@@ -20,7 +20,7 @@ public class Message implements Serializable {
 
     public Message() {}
 
-    public Message(LedgerDTO ledgerDTO, KeyStoreImpl clientKeyStore) { //FIXME vai ter que receber aqui o seqNumber
+    public Message(CryptohdsDTO ledgerDTO, KeyStoreImpl clientKeyStore) { //FIXME vai ter que receber aqui o seqNumber
 
         /*Store on the Envelope the Original Message. To later verify if Signature is Authentic*/
         this.content = ledgerDTO;
