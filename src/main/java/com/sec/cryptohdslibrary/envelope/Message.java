@@ -4,7 +4,6 @@ import com.sec.cryptohdslibrary.keystore.KeyStoreImpl;
 import com.sec.cryptohdslibrary.security.CipherInstance;
 import com.sec.cryptohdslibrary.security.DigSignature;
 import com.sec.cryptohdslibrary.service.dto.CryptohdsDTO;
-import com.sec.cryptohdslibrary.service.dto.LedgerDTO;
 import com.sec.cryptohdslibrary.util.Util;
 
 import java.io.Serializable;
@@ -20,6 +19,7 @@ public class Message implements Serializable {
 
     public Message() {}
 
+    /*Constructor of Message with Content*/
     public Message(CryptohdsDTO ledgerDTO, KeyStoreImpl clientKeyStore) { //FIXME vai ter que receber aqui o seqNumber
 
         /*Store on the Envelope the Original Message. To later verify if Signature is Authentic*/

@@ -91,4 +91,17 @@ public class OperationDTO extends CryptohdsDTO {
     public void setDestinationPublicKey(String destinationPublicKey) {
         this.destinationPublicKey = destinationPublicKey;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Operation[id=%d%n, " +
+                        "timestamp=%s, " +
+                        "value=%,8d%n]",
+                        "committed=%b]",
+                        "type=%s]",
+                        "origin=%s]",
+                        "destination=%s]",
+                id, timestamp.toString(), value, committed, type, originPublicKey, destinationPublicKey);
+    }
 }
