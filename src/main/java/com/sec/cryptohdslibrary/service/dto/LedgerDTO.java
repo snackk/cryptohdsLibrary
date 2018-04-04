@@ -12,6 +12,8 @@ public class LedgerDTO extends CryptohdsDTO {
     private String publicKey;
 
     private Long balance;
+    
+    private int seqNumber;
 
     private List<OperationDTO> operations = new ArrayList<>();
 
@@ -25,6 +27,15 @@ public class LedgerDTO extends CryptohdsDTO {
         this.publicKey = publicKey;
         this.name = name;
         this.balance = 90L;
+        this.seqNumber = 0;
+    }
+    
+    public int getSeqNumber() {
+    	return seqNumber;
+    }
+   
+    public void setSeqNumber(int seqNumb) {
+    	seqNumber = seqNumb;
     }
 
     public Long getId() {
