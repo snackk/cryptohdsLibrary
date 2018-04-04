@@ -15,10 +15,12 @@ public class Message implements Serializable {
     private byte[] signedContent;
 
     private CryptohdsDTO content;
+    
+    private int seqNumber;
 
     public Message() {}
 
-    public Message(LedgerDTO ledgerDTO, KeyStoreImpl clientKeyStore) {
+    public Message(LedgerDTO ledgerDTO, KeyStoreImpl clientKeyStore) { //FIXME vai ter que receber aqui o seqNumber
 
         /*Store on the Envelope the Original Message. To later verify if Signature is Authentic*/
         this.content = ledgerDTO;
@@ -46,4 +48,13 @@ public class Message implements Serializable {
     public void setContent(CryptohdsDTO content) {
         this.content = content;
     }
+    
+    public int getSeqNumb() {
+    	return seqNumber;
+    }
+    
+    public void setSeqNumber(int seqNumb) {
+    	seqNumber = seqNumb;
+    }
+    
 }
