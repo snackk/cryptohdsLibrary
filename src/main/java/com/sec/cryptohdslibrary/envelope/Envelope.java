@@ -4,6 +4,11 @@ import com.sec.cryptohdslibrary.keystore.KeyStoreImpl;
 import com.sec.cryptohdslibrary.security.CipherInstance;
 import com.sec.cryptohdslibrary.util.Util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import javax.crypto.SealedObject;
@@ -21,7 +26,7 @@ public class Envelope implements Serializable {
 
     public Envelope() {}
 
-    public void cipherEnvelope(Message message, String cryptoHdsPKey) {
+    public void cipherEnvelope(Message message, String cryptoHdsPKey) throws IOException {
 
         /*Generate AES key*/
         SecretKey aesKey = CipherInstance.generateAESKey();
@@ -31,16 +36,24 @@ public class Envelope implements Serializable {
                 CipherInstance.decodePublicKey(cryptoHdsPKey)));
 
         /*Generate a sealed message with AES key and store it*/
-        this.sealedMessage = Util.objectToByte(CipherInstance.AESCipherMessage(message, aesKey));
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream os = new ObjectOutputStream(out); 
+        os.writeObject(CipherInstance.AESCipherMessage(message, aesKey));
+        
+        this.sealedMessage= out.toByteArray();
+       
     }
 
-    public Message decipherEnvelope(KeyStoreImpl keyStore) {
+    public Message decipherEnvelope(KeyStoreImpl keyStore) throws ClassNotFoundException, IOException {
 
         /*Decipher AES key with Server private key*/
         byte[] encodedKey = CipherInstance.RSADecipher(Util.stringToBytes(getCipheredAESKey()), keyStore.getkeyPairHDS().getPrivate());
-
-        /*FIXME Esta conversao ta fodida e ta a mandar nullpointer*/
-        SealedObject sealedObject = (SealedObject) Util.byteToObject(this.sealedMessage);
+    
+        ByteArrayInputStream in = new ByteArrayInputStream(this.sealedMessage);
+        ObjectInputStream objectInputStream = new ObjectInputStream(in);
+        
+        SealedObject sealedObject = (SealedObject)objectInputStream.readObject();     
+     
         /*Build SecretKey from byte[]*/
         return CipherInstance.AESDecipherMessage(sealedObject, CipherInstance.getAESKeyFromByte(encodedKey));
     }
