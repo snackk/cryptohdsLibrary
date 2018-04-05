@@ -94,14 +94,13 @@ public class OperationDTO extends CryptohdsDTO {
 
     @Override
     public String toString() {
-        return String.format(
-                "Operation[id=%d%n, " +
-                        "timestamp=%s, " +
-                        "value=%,8d%n]",
-                        "committed=%b]",
-                        "type=%s]",
-                        "origin=%s]",
-                        "destination=%s]",
-                id, timestamp.toString(), value, committed, type, originPublicKey, destinationPublicKey);
+
+        return "id: " + id + "\n" +
+                "timestamp: " + timestamp.toString() + "\n" +
+                "value: " + value + "\n" +
+                "committed: " + committed + "\n" +
+                "type: " + type + "\n" +
+                "origin: " + originPublicKey + "\n" +
+                "destination: " + destinationPublicKey + "\n";
     }
 }
