@@ -4,14 +4,15 @@ import java.util.List;
 
 public class OperationListDTO extends CryptohdsDTO {
 
-
     private List<OperationDTO> pendingOperations;
+
+    public OperationListDTO() {
+
+    }
 
     public OperationListDTO(List<OperationDTO> pendingOperations) {
         this.pendingOperations = pendingOperations;
     }
-
-    public OperationListDTO() {}
 
     public List<OperationDTO> getPendingOperations() {
         return pendingOperations;
@@ -20,7 +21,4 @@ public class OperationListDTO extends CryptohdsDTO {
     public void setPendingOperations(List<OperationDTO> pendingOperations) {
         this.pendingOperations = pendingOperations;
     }
-    
-    
-
 }
