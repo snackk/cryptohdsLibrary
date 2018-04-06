@@ -27,7 +27,7 @@ public class LedgerDTO extends CryptohdsDTO {
         this.publicKey = publicKey;
         this.name = name;
         this.balance = 90L;
-        this.seqNumber = 0;
+        this.seqNumber = -1;
     }
     
     public int getSeqNumber() {

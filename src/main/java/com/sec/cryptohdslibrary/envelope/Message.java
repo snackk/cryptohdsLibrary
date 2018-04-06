@@ -20,7 +20,10 @@ public class Message implements Serializable {
     public Message() {}
 
     /*Constructor of Message with Content*/
-    public Message(CryptohdsDTO ledgerDTO, KeyStoreImpl clientKeyStore) { //FIXME vai ter que receber aqui o seqNumber
+    public Message(CryptohdsDTO ledgerDTO, KeyStoreImpl clientKeyStore, int seqNumber) { //FIXME vai ter que receber aqui o seqNumber
+
+        /*Build the Message with the given seqNumber*/
+        this.seqNumber = seqNumber;
 
         /*Store on the Envelope the Original Message. To later verify if Signature is Authentic*/
         this.content = ledgerDTO;
@@ -29,8 +32,8 @@ public class Message implements Serializable {
         this.signedContent = DigSignature.signMessage(Util.objectToByte(ledgerDTO), clientKeyStore.getkeyPairHDS().getPrivate());
     }
 
-    public boolean verifyMessageSignature(String clientPublickKey) {
-        return DigSignature.verifyMessageSignature(CipherInstance.decodePublicKey(clientPublickKey), signedContent, Util.objectToByte(content));
+    public boolean verifyMessageSignature(String clientPublicKey) {
+        return DigSignature.verifyMessageSignature(CipherInstance.decodePublicKey(clientPublicKey), signedContent, Util.objectToByte(content));
     }
 
     public byte[] getSignedContent() {
@@ -48,13 +51,13 @@ public class Message implements Serializable {
     public void setContent(CryptohdsDTO content) {
         this.content = content;
     }
-    
-    public int getSeqNumb() {
-    	return seqNumber;
+
+
+    public int getSeqNumber() {
+        return seqNumber;
     }
-    
-    public void setSeqNumber(int seqNumb) {
-    	seqNumber = seqNumb;
+
+    public void setSeqNumber(int seqNumber) {
+        this.seqNumber = seqNumber;
     }
-    
 }
