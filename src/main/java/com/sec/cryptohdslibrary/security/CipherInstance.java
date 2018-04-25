@@ -33,10 +33,10 @@ public class CipherInstance {
 	/* --- RSA METHODS --- */
 
 
-	public static byte[] RSACipher(byte[] message, PublicKey privateKey) {
+	public static byte[] RSACipher(byte[] message, PublicKey publicKey) {
 		try {
 			Cipher cipher = Cipher.getInstance(RSA_METHOD);
-			cipher.init(Cipher.ENCRYPT_MODE, privateKey);
+			cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 			return cipher.doFinal(message);
 
 		} catch(NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
