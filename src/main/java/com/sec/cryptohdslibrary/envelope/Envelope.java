@@ -1,17 +1,14 @@
 package com.sec.cryptohdslibrary.envelope;
 
-import com.sec.cryptohdslibrary.keystore.KeyStoreImpl;
-import com.sec.cryptohdslibrary.security.CipherInstance;
-import com.sec.cryptohdslibrary.util.Util;
-
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
 
+import com.sec.cryptohdslibrary.keystore.KeyStoreImpl;
+import com.sec.cryptohdslibrary.security.CipherInstance;
+import com.sec.cryptohdslibrary.util.Util;
 
 public class Envelope implements Serializable {
 
@@ -42,11 +39,9 @@ public class Envelope implements Serializable {
         /*Decipher AES key with Server private key*/
         byte[] encodedKey = CipherInstance.RSADecipher(Util.stringToBytes(getCipheredAESKey()), keyStore.getkeyPairHDS().getPrivate());
 
-        /*TODO This should be moved to Util.byteToObject*/
-        ByteArrayInputStream in = new ByteArrayInputStream(this.sealedMessage);
-        ObjectInputStream objectInputStream = new ObjectInputStream(in);
-        SealedObject sealedObject = (SealedObject)objectInputStream.readObject();     
-     
+		// Get object
+		SealedObject sealedObject = (SealedObject) Util.byteToObject(this.sealedMessage);
+
         /*Build SecretKey from byte[]*/
         return CipherInstance.AESDecipherMessage(sealedObject, CipherInstance.getAESKeyFromByte(encodedKey));
     }
