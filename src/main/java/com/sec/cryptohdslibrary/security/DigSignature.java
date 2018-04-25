@@ -1,12 +1,14 @@
 package com.sec.cryptohdslibrary.security;
 
-import java.security.*;
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Signature;
+import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Arrays;
-
- 
-//SIGNATURES SO SAO USADAS NUM SENTIDO, no outro o servidor usa HMAC para n ter que criar uma signature a cada msg de resposta.TODO
 
 public class DigSignature {
 
@@ -24,7 +26,7 @@ public class DigSignature {
 		}
 		return null;
 	}
-	
+
 	public static boolean verifyMessageSignature(PublicKey pubKeyClient, byte[] signature, byte[] message) {
 		boolean isVerified = false;
 		try {
@@ -42,27 +44,5 @@ public class DigSignature {
 			e.printStackTrace();
 		}
 		return isVerified;
-	}
-	
-	public byte[] timestamped(byte[] data){
-		
-		int ts = (int)(System.currentTimeMillis()/1000); //TODO verificar que a data esta correcta
-		byte[] timeStamp = new byte[]{
-		        (byte) (ts >> 24),
-		        (byte) (ts >> 16),
-		        (byte) (ts >> 8),
-		        (byte) ts};
-		        
-		byte[] timeStampedData = new byte[timeStamp.length + data.length];
-		System.arraycopy(data, 0, data,0, data.length);
-		System.arraycopy(timeStamp,0, timeStampedData,data.length , timeStamp.length);
-		return timeStampedData;
-	}
-	
-	public boolean verifyTimeStamp(byte[] msg1, byte[] msg2) {//TODO Possivelmente em vez de usar timeStamps usar um numero que idenfica a mensagem em que vamos, incrementado pelo servidor.Mesmo esquema, + curto/facil de manipular.
-		byte[] timeStampOnly1 = Arrays.copyOfRange(msg1,msg1.length-24,msg1.length);
-		byte[] timeStampOnly2 = Arrays.copyOfRange(msg2,msg1.length-24,msg2.length);
-		
-		return Arrays.equals(timeStampOnly1,timeStampOnly2);	
 	}
 }
