@@ -1,12 +1,12 @@
 package com.sec.cryptohdslibrary.envelope;
 
+import java.io.Serializable;
+
 import com.sec.cryptohdslibrary.keystore.KeyStoreImpl;
 import com.sec.cryptohdslibrary.security.CipherInstance;
 import com.sec.cryptohdslibrary.security.DigSignature;
 import com.sec.cryptohdslibrary.service.dto.CryptohdsDTO;
 import com.sec.cryptohdslibrary.util.Util;
-
-import java.io.Serializable;
 
 
 public class Message implements Serializable {
@@ -20,7 +20,7 @@ public class Message implements Serializable {
     public Message() {}
 
     /*Constructor of Message with Content*/
-    public Message(CryptohdsDTO ledgerDTO, KeyStoreImpl clientKeyStore, int seqNumber) { //FIXME vai ter que receber aqui o seqNumber
+    public Message(CryptohdsDTO ledgerDTO, KeyStoreImpl clientKeyStore, int seqNumber) {
 
         /*Build the Message with the given seqNumber*/
         this.seqNumber = seqNumber;
@@ -51,7 +51,6 @@ public class Message implements Serializable {
     public void setContent(CryptohdsDTO content) {
         this.content = content;
     }
-
 
     public int getSeqNumber() {
         return seqNumber;

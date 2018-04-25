@@ -1,8 +1,14 @@
 package com.sec.cryptohdslibrary.util;
 
-import org.apache.commons.codec.binary.Base64;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 
-import java.io.*;
+import org.apache.commons.codec.binary.Base64;
 
 public class Util {
 
@@ -16,42 +22,25 @@ public class Util {
 
     public static byte[] objectToByte(Object object2convert) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutput out = null;
-        try {
-            out = new ObjectOutputStream(bos);
+
+		try (ObjectOutput out = new ObjectOutputStream(bos)) {
             out.writeObject(object2convert);
             out.flush();
             return bos.toByteArray();
-
         } catch (IOException e) {
             e.printStackTrace();
-        }  finally {
-            try {
-                bos.close();
-            } catch (IOException ex) {
-                // ignore close exception
-            }
         }
         return null;
     }
 
     public static Object byteToObject(byte[] byte2convert) {
         ByteArrayInputStream bis = new ByteArrayInputStream(byte2convert);
-        ObjectInput in = null;
 
-        try {
-            in = new ObjectInputStream(bis);
-            Object o = in.readObject();
+		try (ObjectInput in = new ObjectInputStream(bis)) {
+			Object obj = in.readObject();
+			return obj;
         }catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException ex) {
-                // ignore close exception
-            }
         }
         return null;
     }
