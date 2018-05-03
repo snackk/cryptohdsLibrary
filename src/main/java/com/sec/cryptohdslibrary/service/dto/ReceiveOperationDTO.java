@@ -2,7 +2,9 @@ package com.sec.cryptohdslibrary.service.dto;
 
 public class ReceiveOperationDTO extends CryptohdsDTO {
 
-    private String publicKey;
+	private static final long serialVersionUID = -3380854167931395053L;
+
+	private String publicKey;
 
     private Long operationId;
 
