@@ -5,7 +5,9 @@ import java.util.List;
 
 public class LedgerDTO extends CryptohdsDTO {
 
-    private Long id;
+	private static final long serialVersionUID = 1054480584104956212L;
+
+	private Long id;
 
     private String name;
 
