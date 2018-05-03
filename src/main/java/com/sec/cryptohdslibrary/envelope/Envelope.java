@@ -12,7 +12,9 @@ import com.sec.cryptohdslibrary.util.Util;
 
 public class Envelope implements Serializable {
 
-    private String cipheredAESKey;
+	private static final long serialVersionUID = -3232620599416562172L;
+
+	private String cipheredAESKey;
 
     private byte[] sealedMessage;
 

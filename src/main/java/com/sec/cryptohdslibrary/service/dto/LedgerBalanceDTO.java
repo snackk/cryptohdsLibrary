@@ -4,7 +4,9 @@ import java.util.List;
 
 public class LedgerBalanceDTO extends CryptohdsDTO {
 
-    private Long balance;
+	private static final long serialVersionUID = -5473560456329992285L;
+
+	private Long balance;
 
     private List<OperationDTO> pendingOperations;
 

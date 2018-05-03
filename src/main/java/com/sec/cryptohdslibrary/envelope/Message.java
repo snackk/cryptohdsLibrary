@@ -8,10 +8,11 @@ import com.sec.cryptohdslibrary.security.DigSignature;
 import com.sec.cryptohdslibrary.service.dto.CryptohdsDTO;
 import com.sec.cryptohdslibrary.util.Util;
 
-
 public class Message implements Serializable {
 
-    private byte[] signedContent;
+	private static final long serialVersionUID = 6523143292775106541L;
+
+	private byte[] signedContent;
 
     private CryptohdsDTO content;
     

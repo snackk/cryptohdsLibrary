@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 
 public class OperationDTO extends CryptohdsDTO {
 
-    private Long id;
+	private static final long serialVersionUID = -5413133358084845758L;
+
+	private Long id;
 
     private LocalDateTime timestamp;
 
@@ -12,19 +14,16 @@ public class OperationDTO extends CryptohdsDTO {
 
     private Boolean committed;
 
-    private String type;
-
     private String originPublicKey;
 
     private String destinationPublicKey;
 
     public OperationDTO() {}
 
-    public OperationDTO(Long id, LocalDateTime timestamp, Long value, Boolean committed, String type, String originPublicKey, String destinationPublicKey) {
+    public OperationDTO(Long id, LocalDateTime timestamp, Long value, Boolean committed, String originPublicKey, String destinationPublicKey) {
         this.id = id;
         this.timestamp = timestamp;
         this.committed = committed;
-        this.type = type;
         this.originPublicKey = originPublicKey;
         this.destinationPublicKey = destinationPublicKey;
         this.value = value;
@@ -68,14 +67,6 @@ public class OperationDTO extends CryptohdsDTO {
         this.committed = committed;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getOriginPublicKey() {
         return originPublicKey;
     }
@@ -99,7 +90,6 @@ public class OperationDTO extends CryptohdsDTO {
                 "timestamp: " + timestamp.toString() + "\n" +
                 "value: " + value + "\n" +
                 "committed: " + committed + "\n" +
-                "type: " + type + "\n" +
                 "origin: " + originPublicKey + "\n" +
                 "destination: " + destinationPublicKey + "\n";
     }

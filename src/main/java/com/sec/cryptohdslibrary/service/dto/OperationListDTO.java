@@ -4,7 +4,9 @@ import java.util.List;
 
 public class OperationListDTO extends CryptohdsDTO {
 
-    private List<OperationDTO> pendingOperations;
+	private static final long serialVersionUID = -2812788279011207746L;
+
+	private List<OperationDTO> pendingOperations;
 
     public OperationListDTO() {
 
