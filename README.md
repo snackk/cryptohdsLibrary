@@ -9,3 +9,5 @@ A shared library between **cryptohds** and **cryptohdsClient**, to simplify the 
 ```sh
 $ mvn clean install 
 ```
+
+  Written by [@snackk](https://github.com/snackk)
